@@ -62,7 +62,6 @@ router.get('/:id', (req, res) => {
       });
   });
 
-  // PUT /api/posts/upvote
 // create the vote
 Vote.create({
   user_id: req.body.user_id,
@@ -90,6 +89,7 @@ Vote.create({
     console.log(err);
     res.status(400).json(err);
   });
+
 
   router.put('/:id', (req, res) => {
     Post.update(                
