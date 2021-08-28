@@ -62,6 +62,33 @@ router.get('/:id', (req, res) => {
       });
   });
 
+  
+  router.put('/:id', (req, res) => {
+    Post.update(
+      {
+        title: req.body.title
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    )
+      .then(dbPostData => {
+        if (!dbPostData) {
+          res.status(404).json({ message: 'No post found with this id' });
+          return;
+        }
+        res.json(dbPostData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+
+// PUT /api/posts/upvote
+router.put('/upvote', (req, res) => {
 // create the vote
 Vote.create({
   user_id: req.body.user_id,
@@ -89,31 +116,8 @@ Vote.create({
     console.log(err);
     res.status(400).json(err);
   });
+});
 
-
-  router.put('/:id', (req, res) => {
-    Post.update(                
-      {
-        title: req.body.title
-      },
-      {
-        where: {
-          id: req.params.id
-        }
-      }
-    )
-      .then(dbPostData => {
-        if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
-          return;
-        }
-        res.json(dbPostData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  });
 
   router.delete('/:id', (req, res) => {
     Post.destroy({
