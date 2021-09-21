@@ -42,7 +42,7 @@ async function signupFormHandler(event) {
       });
   
       if (response.ok) {
-        document.location.replace('/');      // why was this code added? network status code wasnt 200
+        document.location.replace('/dashboard');      // why was this code added? network status code wasnt 200
       } else {
         alert(response.statusText);
       }
